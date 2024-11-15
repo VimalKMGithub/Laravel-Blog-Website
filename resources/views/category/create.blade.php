@@ -1,11 +1,11 @@
 <x-admin-layout>
-    <x-dashboard-navbar route="{{ route('dashboard') }}"/>
+    <x-dashboard-navbar route="{{ route('dashboard') }}" />
 
     <div class="dashboard">
         <form action="{{ route('categories.store') }}" method="POST" id="create_category">
             @csrf
-            <div class="welcome-2">Dodaj kategorię</div>
-            @if(count($errors) > 0)
+            <div class="welcome-2">Add the category</div>
+            @if (count($errors) > 0)
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -13,13 +13,13 @@
                 </ul>
             @endif
             <div class="body_form">
-                <label>Nazwa</label>
+                <label>Name</label>
                 <input type="text" name="name" autocomplete="off">
-                <label>Tło</label>
+                <label>Background</label>
                 <input type="text" name="backgroundColor" autocomplete="off">
-                <label>Kolor</label>
+                <label>Color</label>
                 <input type="text" name="textColor" autocomplete="off">
-                <input type="submit" value="Utwórz">
+                <input type="submit" value="Create">
             </div>
         </form>
     </div>

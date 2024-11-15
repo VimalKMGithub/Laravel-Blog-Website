@@ -1,31 +1,47 @@
 <div class="modal">
     <div class="modal-profile">
-        <span>Witaj!</span>
+        <span>Hello!</span>
         <i class="fa-solid fa-circle-xmark close close-modal"></i>
         <div class="notifications">{{ $unreadNotifications }} <i class="fa-solid fa-angles-right"></i></div>
         <p class="name">{{ Auth::User() ? Auth::User()->firstname . ' ' . Auth::User()->lastname : '' }}</p>
         <p class="role_profile">{{ Auth::User() ? Auth::User()->roles[0]->name : '' }}</p>
-        <p class="info">Dostępne akcje</p>
-        <a href="{{ route('dashboard') }}" class="button"><i class="fa-solid fa-wrench"></i><p>Panel</p></a>
-        <a href="{{ route('profile') }}" class="button"><i class="fa-solid fa-id-card"></i><p>Profil</p></a>
-        <div class="button toggle-mode" onClick="toggleMode();"><i class="fa-solid fa-moon"></i><p>Tryb Ciemny</p></div>
-        <a href="{{ route('logout') }}" class="button"><i class="fa-solid fa-right-from-bracket"></i><p>Wyloguj</p></a>
-        <p class="info">Szybkie akcje</p>
+        <p class="info">Available actions</p>
+        <a href="{{ route('dashboard') }}" class="button"><i class="fa-solid fa-wrench"></i>
+            <p>Panel</p>
+        </a>
+        <a href="{{ route('profile') }}" class="button"><i class="fa-solid fa-id-card"></i>
+            <p>Profile</p>
+        </a>
+        <div class="button toggle-mode" onClick="toggleMode();"><i class="fa-solid fa-moon"></i>
+            <p>Dark mode</p>
+        </div>
+        <a href="{{ route('logout') }}" class="button"><i class="fa-solid fa-right-from-bracket"></i>
+            <p>Log out</p>
+        </a>
+        <p class="info">Fast actions</p>
         @can('post-create')
-            <a href="{{ route('posts.create') }}" class="button"><i class="fa-solid fa-plus"></i><p>Dodaj post</p></a>
+            <a href="{{ route('posts.create') }}" class="button"><i class="fa-solid fa-plus"></i>
+                <p>Add fast</p>
+            </a>
         @endcan
         @can('category-create')
-            <a href="{{ route('categories.create') }}" class="button"><i class="fa-solid fa-square-plus"></i><p>Dodaj kategorię</p></a>
+            <a href="{{ route('categories.create') }}" class="button"><i class="fa-solid fa-square-plus"></i>
+                <p>Add the category</p>
+            </a>
         @endcan
         @can('user-create')
-            <a href="{{ route('users.create') }}" class="button"><i class="fa-solid fa-user-plus"></i><p>Dodaj użytownika</p></a>
+            <a href="{{ route('users.create') }}" class="button"><i class="fa-solid fa-user-plus"></i>
+                <p>Add the user</p>
+            </a>
         @endcan
         @can('role-create')
-            <a href="{{ route('roles.create') }}" class="button"><i class="fa-solid fa-wrench"></i><p>Dodaj role</p></a>
+            <a href="{{ route('roles.create') }}" class="button"><i class="fa-solid fa-wrench"></i>
+                <p>Add roles</p>
+            </a>
         @endcan
         <div class="line-1"></div>
         <div class="clock">
-            <p class="info">Aktualny czas</p>
+            <p class="info">Current time</p>
             <div class="time">
                 <span id="hours">23</span>
                 <span id="minutes">59</span>
@@ -34,14 +50,16 @@
         <div class="line-1"></div>
     </div>
     <div class="modal-notifications">
-        <div class="back"><i class="fa-solid fa-angles-left"></i> <p>Powrót</p></div>
+        <div class="back"><i class="fa-solid fa-angles-left"></i>
+            <p>Return</p>
+        </div>
         @if (count($notifications) === 0)
             <div class="notification action">
-                <p class="empty">Brak powiadomień</p>
+                <p class="empty">No notifications</p>
             </div>
         @else
             <div class="notification action">
-                <div class="clear_notifications" onclick="clearNotifications();">Wyczyść powiadomienia</div>
+                <div class="clear_notifications" onclick="clearNotifications();">Clear notifications</div>
             </div>
         @endif
         @php
@@ -69,23 +87,23 @@
             @foreach ($group as $notification)
                 @php
                     $class = null;
-                    switch($notification->data['type']) {
-                        case "SUKCES":
-                            $class = " success";
+                    switch ($notification->data['type']) {
+                        case 'SUKCES':
+                            $class = ' success';
                             break;
-                        case "INFO":
-                            $class = " info";
+                        case 'INFO':
+                            $class = ' info';
                             break;
-                        case "OSTRZEŻENIE":
-                            $class = " warning";
+                        case 'OSTRZEŻENIE':
+                            $class = ' warning';
                             break;
-                        case "BŁĄD":
-                            $class = " error";
+                        case 'BŁĄD':
+                            $class = ' error';
                             break;
                         default:
-                            $class = " info";
+                            $class = ' info';
                     }
-                    switch($notification->type) {
+                    switch ($notification->type) {
                         case \App\Notifications\PostNotification::class:
                             $icon = '<i class="fa-solid fa-newspaper icon"></i>';
                             break;
@@ -99,17 +117,18 @@
                             $icon = '<i class="fa-regular fa-bell"></i>';
                     }
                 @endphp
-                <div class="notification{{$class}}">
+                <div class="notification{{ $class }}">
                     <div class="header">
                         {!! $icon !!}
                         <i class="fa-solid fa-circle"></i>
                         <div class="type">{{ $notification->data['type'] }}</div>
                         <i class="fa-solid fa-circle"></i>
-                        <div class="time">{{ str_pad($notification->created_at->format('H:i'), 5, "0", STR_PAD_LEFT) }}</div>
+                        <div class="time">
+                            {{ str_pad($notification->created_at->format('H:i'), 5, '0', STR_PAD_LEFT) }}</div>
                     </div>
                     <div class="message"> {{ $notification->data['message'] }} </div>
-                    @if($notification->data['link'])
-                        <a href="{{ $notification->data['link'] }}" class="link"> >> Przejdź</a>
+                    @if ($notification->data['link'])
+                        <a href="{{ $notification->data['link'] }}" class="link"> >> Go</a>
                     @endif
                 </div>
             @endforeach

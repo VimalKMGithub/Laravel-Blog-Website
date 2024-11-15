@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
             CategoriesSeeder::class,
         ]);
 
-        \App\Models\Post::factory(50)->create();
+        // \App\Models\Post::factory(50)->create();
 
-        $this->call([
-            HighlightPostSeeder::class,
-        ]);
+        // $this->call([
+        //     HighlightPostSeeder::class,
+        // ]);
     }
 }

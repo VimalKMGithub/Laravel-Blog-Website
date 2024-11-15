@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,22 +20,24 @@
     @yield('scripts')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body>
     <x-header-navbar />
 
-    @if(!Auth::User())
+    @if (!Auth::User())
         <x-change-theme />
     @endif
 
     {{ $slot }}
 
-    @if(Auth::User())
+    @if (Auth::User())
         <x-user-panel />
     @endif
 
     <footer>
-        <p>Mateusz Zaborski ● 2023</p>
+        <p>Vimal Kumar Mishra ● 2024</p>
     </footer>
 
 </body>
+
 </html>
